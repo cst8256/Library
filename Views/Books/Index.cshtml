@@ -1,0 +1,120 @@
+@model IEnumerable<Library.Models.Book>
+
+<header class="p-3">
+    <h1 class="display-1 text-center">Library</h1>
+</header>
+
+<section class="row">
+    <article class="col-6">
+        <h2 class="mb-3">Books</h2>
+        <form>
+            <input type="search" name="search" class="form-control mb-3" placeholder="Search..." />
+        </form>
+        <div class="p-3 border border-1 rounded-3 mb-3">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Index" asp-route-sort="@ViewBag.TitleSort" class="text-decoration-none">
+                                Title
+                                @if (ViewBag.CurrentSort == "title_asc")
+                                {
+                                    <span> ↑</span>
+                                }
+                                else if (ViewBag.CurrentSort == "title_desc")
+                                {
+                                    <span> ↓</span>
+                                }
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sort="@ViewBag.AuthorSort" class="text-decoration-none">
+                                Author
+                                @if (ViewBag.CurrentSort == "author_asc")
+                                {
+                                    <span> ↑</span>
+                                }
+                                else if (ViewBag.CurrentSort == "author_desc")
+                                {
+                                    <span> ↓</span>
+                                }
+                            </a>
+                        </th>
+                        <th class="text-end">
+                            <a asp-action="Index" asp-route-sort="@ViewBag.DateSort" class="text-decoration-none">
+                                Publication Date
+                                @if (ViewBag.CurrentSort == "date_asc")
+                                {
+                                    <span> ↑</span>
+                                }
+                                else if (ViewBag.CurrentSort == "date_desc")
+                                {
+                                    <span> ↓</span>
+                                }
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                     @foreach (var item in Model) {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Author</td>
+                        <td class="text-end">@item.PublicationDate</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Books pagination" class="d-flex justify-content-end">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link"
+                       asp-action="Index">Prev</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link"
+                       asp-action="Index">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </article>
+    <article class="col-6">
+        <h2 class="mb-3">Stats</h2>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Books By Genre</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span>Biography</span>
+                                <span class="badge bg-secondary rounded-pill">36</span>
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Books Available</h3>
+                        <p class="display-6 mb-0">10</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Average Loan Length</h3>
+                        <p class="display-6 mb-0">7 days</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </article>    
+</section>
+
